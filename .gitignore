@@ -9,6 +9,10 @@
 .history
 .svn/
 migrate_working_dir/
+.env
+google-services.json
+GoogleService-Info.plist
+.fvm/flutter_sdk
 
 # IntelliJ related
 *.iml
@@ -42,6 +46,3 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
-
-# FVM Version Cache
-.fvm/

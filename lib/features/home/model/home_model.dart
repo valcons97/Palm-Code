@@ -15,8 +15,10 @@ class HomeModel extends Equatable {
       ];
 
   factory HomeModel.fromJson(Map<String, dynamic> json) {
+    final bookList = List<Map<String, dynamic>>.from(json['results'] ?? []);
+
     return HomeModel(
-      books: json['results'],
+      books: bookList.map<BookModel>(BookModel.fromJson).toList(),
     );
   }
 

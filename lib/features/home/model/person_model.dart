@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 
 class PersonModel extends Equatable {
   const PersonModel({
-    required this.birthYear,
-    required this.deathYear,
+    this.birthYear,
+    this.deathYear,
     required this.name,
   });
 
-  final int birthYear;
+  final int? birthYear;
 
-  final int deathYear;
+  final int? deathYear;
 
   final String name;
 

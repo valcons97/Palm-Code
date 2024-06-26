@@ -51,14 +51,22 @@ class BookModel extends Equatable {
       ];
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
+    final subjectList = List<String>.from(json['subjects'] ?? []);
+    final authorsList = List<Map<String, dynamic>>.from(json['authors'] ?? []);
+    final translatorList =
+        List<Map<String, dynamic>>.from(json['translators'] ?? []);
+    final shelvesList = List<String>.from(json['bookshelves'] ?? []);
+    final languagesList = List<String>.from(json['languages'] ?? []);
+
     return BookModel(
       id: json['id'],
       title: json['title'],
-      subjects: json['subjects'],
-      authors: json['authors'],
-      translators: json['translators'],
-      booksShelves: json['bookshelves'],
-      languages: json['languages'],
+      subjects: subjectList,
+      authors: authorsList.map<PersonModel>(PersonModel.fromJson).toList(),
+      translators:
+          translatorList.map<PersonModel>(PersonModel.fromJson).toList(),
+      booksShelves: shelvesList,
+      languages: languagesList,
       copyright: json['copyright'],
       mediaType: json['media_type'],
       downloadCount: json['download_count'],

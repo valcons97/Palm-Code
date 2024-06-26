@@ -85,7 +85,9 @@ class BookContainer extends StatelessWidget {
                         SizedBox(height: 8.h),
                       ],
                       Text(
-                        book?.authors.first.name ?? '',
+                        book!.authors.isNotEmpty
+                            ? book!.authors[0].name
+                            : 'Unknown',
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontFamily: 'Poppins',

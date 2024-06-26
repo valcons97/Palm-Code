@@ -10,9 +10,9 @@ class HomeServiceClient extends RestServiceClient {
     super.httpClientProvider,
   );
 
-  Future<HomeResponse> getBooks() async {
+  Future<HomeResponse> getBooks({int? page = 1}) async {
     final res = await httpClientProvider.get(
-      homePath,
+      '$homePath$page',
       (json) => HomeResponse.fromJson(json),
     );
 

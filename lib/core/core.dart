@@ -15,4 +15,4 @@ export 'storage/storage.dart';
 export 'theme/theme.dart';
 export 'widgets/widgets.dart';
 
-Logger tokbanLogger = Logger(printer: PrettyPrinter());
+Logger codeLogger = Logger(printer: PrettyPrinter());

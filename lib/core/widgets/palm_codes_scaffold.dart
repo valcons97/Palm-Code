@@ -71,56 +71,8 @@ class PalmCodesScaffold extends StatelessWidget {
           enablePullDown: enablePullDown ?? false,
           enablePullUp: enablePullUp,
           scrollController: scrollController,
-          onRefresh: onRefresh ?? () => tokbanLogger.i('Refreshed'),
+          onRefresh: onRefresh ?? () => codeLogger.i('Refreshed'),
           onLoading: onLoading,
-          footer: CustomFooter(
-            builder: (context, mode) {
-              Widget bottom;
-              if (mode == LoadStatus.idle) {
-                bottom = Text(
-                  'Tarik ke atas untuk memuat',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                  ).withLineHeight(19.2.sp),
-                );
-              } else if (mode == LoadStatus.loading) {
-                bottom = const CircularProgressIndicator();
-              } else if (mode == LoadStatus.failed) {
-                bottom = Text(
-                  'Gagal memuat! Silahkan coba lagi',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                  ).withLineHeight(19.2.sp),
-                );
-              } else if (mode == LoadStatus.canLoading) {
-                bottom = Text(
-                  'Lepas untuk memuat data',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                  ).withLineHeight(19.2.sp),
-                );
-              } else {
-                bottom = Text(
-                  'Tidak ada data lagi',
-                  style: TextStyle(
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w400,
-                    fontSize: 12.sp,
-                  ).withLineHeight(19.2.sp),
-                );
-              }
-              return SizedBox(
-                height: 55.0,
-                child: Center(child: bottom),
-              );
-            },
-          ),
           child: body,
         ),
         floatingActionButton: floatingActionButton,

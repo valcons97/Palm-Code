@@ -52,21 +52,23 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       useInheritedMediaQuery: true,
       builder: (context, _) {
-        return MaterialApp.router(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.orange,
-            bottomSheetTheme: const BottomSheetThemeData(
-              backgroundColor: Colors.transparent,
+        return RefreshConfiguration(
+          child: MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.orange,
+              bottomSheetTheme: const BottomSheetThemeData(
+                backgroundColor: Colors.transparent,
+              ),
+              appBarTheme: const AppBarTheme(
+                color: Colors.white,
+              ),
             ),
-            appBarTheme: const AppBarTheme(
-              color: Colors.white,
+            routerDelegate: router.delegate(
+              navigatorObservers: () => [NavigationObserver()],
             ),
+            routeInformationParser: router.defaultRouteParser(),
           ),
-          routerDelegate: router.delegate(
-            navigatorObservers: () => [NavigationObserver()],
-          ),
-          routeInformationParser: router.defaultRouteParser(),
         );
       },
     );

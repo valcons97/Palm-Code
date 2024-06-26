@@ -30,7 +30,8 @@ class HomePage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            final HomeModel books = state.books ?? const HomeModel(books: []);
+            final HomeModel books =
+                state.model ?? const HomeModel(books: [], next: '');
             body = ListView.builder(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.fromLTRB(24, 20, 24, 4).r,
@@ -43,20 +44,23 @@ class HomePage extends StatelessWidget {
         }
         return IgnorePointer(
           ignoring: state.loading == true,
-          child: DefaultTabController(
-            length: 2,
-            child: SafeArea(
-              child: PalmCodesScaffold(
-                appbar: AppBar(
-                  title: SearchBarWidget(
-                    onFieldSubmitted: (search) {},
-                  ),
+          child: SafeArea(
+            child: PalmCodesScaffold(
+              appbar: AppBar(
+                title: SearchBarWidget(
+                  onFieldSubmitted: (search) {},
                 ),
-                refreshController: refreshController,
-                enablePullDown: false,
-                scrollController: scrollController,
-                body: body,
               ),
+              refreshController: refreshController,
+              enablePullUp: state.model?.next.isNotEmpty ?? false,
+              enablePullDown: false,
+              scrollController: scrollController,
+              onLoading: () async {
+                refreshController.isLoading;
+                await context.read<HomeCubit>().addPage();
+                refreshController.loadComplete();
+              },
+              body: body,
             ),
           ),
         );

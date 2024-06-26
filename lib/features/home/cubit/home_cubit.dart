@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:palm_codes/features/home/model/book_model.dart';
 import 'package:palm_codes/features/index.dart';
 
 import '../../../../core/core.dart';
@@ -26,7 +27,7 @@ class HomeCubit extends Cubit<HomeState> {
         flow: HomeFlow.loaded,
       ),
     );
-    final result = await homeRepository.getBooks();
+    final result = await homeRepository.getBooks(page: state.page);
 
     return result.fold(
       (failure) {
@@ -40,15 +41,49 @@ class HomeCubit extends Cubit<HomeState> {
         );
         return false;
       },
-      (books) async {
+      (model) async {
         emit(
           state.copyWith(
             loading: false,
-            books: books,
+            model: model,
           ),
         );
         return true;
       },
     );
+  }
+
+  Future<void> addPage() async {
+    if (state.loadMore) {
+      emit(state.copyWith(page: state.page + 1));
+
+      final result = await homeRepository.getBooks(page: state.page);
+
+      result.fold(
+        (failure) {
+          emit(
+            state.copyWith(
+              loading: false,
+              failure: failure,
+              flow: HomeFlow.failure,
+              lastFailureTime: DateTime.now(),
+            ),
+          );
+        },
+        (model) async {
+          final List<BookModel> updatedBookList = [];
+          updatedBookList.addAll(state.model?.books ?? []);
+          final newList = model.books;
+          updatedBookList.addAll(newList);
+
+          emit(
+            state.copyWith(
+              loading: false,
+              model: HomeModel(books: updatedBookList, next: model.next),
+            ),
+          );
+        },
+      );
+    }
   }
 }

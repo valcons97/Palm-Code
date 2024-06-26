@@ -1,3 +1,4 @@
+import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
 import '_model.dart';
@@ -14,6 +15,7 @@ class BookModel extends Equatable {
     required this.copyright,
     required this.mediaType,
     required this.downloadCount,
+    required this.formats,
   });
 
   final int id;
@@ -36,6 +38,8 @@ class BookModel extends Equatable {
 
   final int downloadCount;
 
+  final Map<String, String> formats;
+
   @override
   List<Object?> get props => [
         id,
@@ -48,6 +52,7 @@ class BookModel extends Equatable {
         copyright,
         mediaType,
         downloadCount,
+        formats,
       ];
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
@@ -57,6 +62,7 @@ class BookModel extends Equatable {
         List<Map<String, dynamic>>.from(json['translators'] ?? []);
     final shelvesList = List<String>.from(json['bookshelves'] ?? []);
     final languagesList = List<String>.from(json['languages'] ?? []);
+    final formatMap = Map<String, String>.from(json['formats'] ?? emptyMap());
 
     return BookModel(
       id: json['id'],
@@ -70,6 +76,7 @@ class BookModel extends Equatable {
       copyright: json['copyright'],
       mediaType: json['media_type'],
       downloadCount: json['download_count'],
+      formats: formatMap,
     );
   }
 
@@ -84,6 +91,7 @@ class BookModel extends Equatable {
     bool? copyright,
     String? mediaType,
     int? downloadCount,
+    Map<String, String>? formats,
   }) =>
       BookModel(
         id: id ?? this.id,
@@ -96,5 +104,6 @@ class BookModel extends Equatable {
         copyright: copyright ?? this.copyright,
         mediaType: mediaType ?? this.mediaType,
         downloadCount: downloadCount ?? this.downloadCount,
+        formats: formats ?? this.formats,
       );
 }

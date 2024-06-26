@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:palm_codes/core/palm_codes_scaffold.dart';
 import 'package:palm_codes/features/home/cubit/home_cubit.dart';
 import 'package:palm_codes/features/home/home_index.dart';
+import 'package:palm_codes/features/home/widgets/book_container.dart';
 
 import '../../../core/core.dart';
 
@@ -31,18 +31,13 @@ class HomePage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           } else {
-            final HomeModel books = state.books ?? HomeModel(books: []);
+            final HomeModel books = state.books ?? const HomeModel(books: []);
             body = ListView.builder(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.fromLTRB(24, 20, 24, 4).r,
               itemCount: books.books.length,
               itemBuilder: (context, index) {
-                return Container(
-                  margin: const EdgeInsets.all(2).r,
-                  width: 10,
-                  height: 10,
-                  color: Colors.red,
-                );
+                return BookContainer(book: books.books[index]);
               },
             );
           }

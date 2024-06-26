@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:palm_codes/core/palm_codes_scaffold.dart';
 import 'package:palm_codes/features/home/pages/home_nav_observer.dart';
 
 import '../../../core/core.dart';

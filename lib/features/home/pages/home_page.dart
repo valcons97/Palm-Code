@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palm_codes/features/home/cubit/home_cubit.dart';
 import 'package:palm_codes/features/home/home_index.dart';
-import 'package:palm_codes/features/home/widgets/book_container.dart';
 
 import '../../../core/core.dart';
 
@@ -45,9 +44,14 @@ class HomePage extends StatelessWidget {
         return IgnorePointer(
           ignoring: state.loading == true,
           child: DefaultTabController(
-            length: 4,
+            length: 2,
             child: SafeArea(
               child: PalmCodesScaffold(
+                appbar: AppBar(
+                  title: SearchBarWidget(
+                    onFieldSubmitted: (search) {},
+                  ),
+                ),
                 refreshController: refreshController,
                 enablePullDown: false,
                 scrollController: scrollController,

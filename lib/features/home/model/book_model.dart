@@ -1,8 +1,12 @@
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
 import '_model.dart';
 
+part 'book_model.g.dart';
+
+@HiveType(typeId: 1)
 class BookModel extends Equatable {
   const BookModel({
     required this.id,
@@ -16,29 +20,44 @@ class BookModel extends Equatable {
     required this.mediaType,
     required this.downloadCount,
     required this.formats,
+    this.favorite = false,
   });
 
+  @HiveField(0)
   final int id;
 
+  @HiveField(1)
   final String title;
 
+  @HiveField(2)
   final List<String> subjects;
 
+  @HiveField(3)
   final List<PersonModel> authors;
 
+  @HiveField(4)
   final List<PersonModel> translators;
 
+  @HiveField(5)
   final List<String> booksShelves;
 
+  @HiveField(6)
   final List<String> languages;
 
+  @HiveField(7)
   final bool copyright;
 
+  @HiveField(8)
   final String mediaType;
 
+  @HiveField(9)
   final int downloadCount;
 
+  @HiveField(10)
   final Map<String, String> formats;
+
+  @HiveField(11)
+  final bool favorite;
 
   @override
   List<Object?> get props => [
@@ -53,6 +72,7 @@ class BookModel extends Equatable {
         mediaType,
         downloadCount,
         formats,
+        favorite,
       ];
 
   factory BookModel.fromJson(Map<String, dynamic> json) {
@@ -92,18 +112,19 @@ class BookModel extends Equatable {
     String? mediaType,
     int? downloadCount,
     Map<String, String>? formats,
+    bool? favorite,
   }) =>
       BookModel(
-        id: id ?? this.id,
-        title: title ?? this.title,
-        subjects: subjects ?? this.subjects,
-        authors: authors ?? this.authors,
-        translators: translators ?? this.translators,
-        booksShelves: booksShelves ?? this.booksShelves,
-        languages: languages ?? this.languages,
-        copyright: copyright ?? this.copyright,
-        mediaType: mediaType ?? this.mediaType,
-        downloadCount: downloadCount ?? this.downloadCount,
-        formats: formats ?? this.formats,
-      );
+          id: id ?? this.id,
+          title: title ?? this.title,
+          subjects: subjects ?? this.subjects,
+          authors: authors ?? this.authors,
+          translators: translators ?? this.translators,
+          booksShelves: booksShelves ?? this.booksShelves,
+          languages: languages ?? this.languages,
+          copyright: copyright ?? this.copyright,
+          mediaType: mediaType ?? this.mediaType,
+          downloadCount: downloadCount ?? this.downloadCount,
+          formats: formats ?? this.formats,
+          favorite: favorite ?? this.favorite);
 }

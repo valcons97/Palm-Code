@@ -1,5 +1,9 @@
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 
+part 'person_model.g.dart';
+
+@HiveType(typeId: 2)
 class PersonModel extends Equatable {
   const PersonModel({
     this.birthYear,
@@ -7,10 +11,13 @@ class PersonModel extends Equatable {
     required this.name,
   });
 
+  @HiveField(0)
   final int? birthYear;
 
+  @HiveField(1)
   final int? deathYear;
 
+  @HiveField(2)
   final String name;
 
   @override

@@ -12,7 +12,11 @@ class BookDetailPageWrapper extends StatelessWidget
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return this;
+    return BlocProvider(
+      create: (_) =>
+          getIt<DetailCubit>()..getFavorite(bookDetail.id.toString()),
+      child: this,
+    );
   }
 
   @override

@@ -1,15 +1,21 @@
 import 'package:equatable/equatable.dart';
+import 'package:hive/hive.dart';
 import 'package:palm_codes/features/home/model/book_model.dart';
 
+part 'home_model.g.dart';
+
 /// Model features for example must be modified to use
+@HiveType(typeId: 0)
 class HomeModel extends Equatable {
   const HomeModel({
     required this.books,
     required this.next,
   });
 
+  @HiveField(0)
   final List<BookModel> books;
 
+  @HiveField(1)
   final String next;
 
   @override

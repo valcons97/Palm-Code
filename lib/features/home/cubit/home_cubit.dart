@@ -1,7 +1,8 @@
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:palm_codes/features/home/model/book_model.dart';
 import 'package:palm_codes/features/index.dart';
 
 import '../../../../core/core.dart';
@@ -20,6 +21,8 @@ class HomeCubit extends Cubit<HomeState> {
 
   final IHomeRepository homeRepository;
 
+  final box = Hive.box('books');
+
   Future<bool> getBooks() async {
     emit(
       state.copyWith(
@@ -27,41 +30,21 @@ class HomeCubit extends Cubit<HomeState> {
         flow: HomeFlow.loaded,
       ),
     );
-    final result =
-        await homeRepository.getBooks(page: state.page, search: state.search);
 
-    return result.fold(
-      (failure) {
-        emit(
-          state.copyWith(
-            loading: false,
-            failure: failure,
-            flow: HomeFlow.failure,
-            lastFailureTime: DateTime.now(),
-          ),
-        );
-        return false;
-      },
-      (model) async {
-        emit(
-          state.copyWith(
-            loading: false,
-            model: model,
-          ),
-        );
-        return true;
-      },
-    );
-  }
-
-  Future<void> addPage() async {
-    if (state.loadMore) {
-      emit(state.copyWith(page: state.page + 1));
-
+    if (box.get('${state.page}.${state.search}') != null) {
+      final HomeModel model = box.get('${state.page}.${state.search}');
+      emit(
+        state.copyWith(
+          loading: false,
+          model: model,
+        ),
+      );
+      return true;
+    } else {
       final result =
           await homeRepository.getBooks(page: state.page, search: state.search);
 
-      result.fold(
+      return result.fold(
         (failure) {
           emit(
             state.copyWith(
@@ -71,21 +54,71 @@ class HomeCubit extends Cubit<HomeState> {
               lastFailureTime: DateTime.now(),
             ),
           );
+          return false;
         },
         (model) async {
-          final List<BookModel> updatedBookList = [];
-          updatedBookList.addAll(state.model?.books ?? []);
-          final newList = model.books;
-          updatedBookList.addAll(newList);
-
           emit(
             state.copyWith(
               loading: false,
-              model: HomeModel(books: updatedBookList, next: model.next),
+              model: model,
             ),
           );
+          box.put('${state.page}.${state.search}', model);
+          return true;
         },
       );
+    }
+  }
+
+  Future<void> addPage() async {
+    if (state.loadMore) {
+      emit(state.copyWith(page: state.page + 1));
+
+      final List<BookModel> updatedBookList = [];
+      updatedBookList.addAll(state.model?.books ?? []);
+
+      if (box.get('${state.page}.${state.search}') != null) {
+        debugPrint('cache ${state.page}.${state.search}');
+        final HomeModel model = box.get('${state.page}.${state.search}');
+
+        final newList = model.books;
+        updatedBookList.addAll(newList);
+        emit(
+          state.copyWith(
+            loading: false,
+            model: HomeModel(books: updatedBookList, next: model.next),
+          ),
+        );
+      } else {
+        final result = await homeRepository.getBooks(
+            page: state.page, search: state.search);
+
+        result.fold(
+          (failure) {
+            emit(
+              state.copyWith(
+                loading: false,
+                failure: failure,
+                flow: HomeFlow.failure,
+                lastFailureTime: DateTime.now(),
+              ),
+            );
+          },
+          (model) async {
+            final newList = model.books;
+            updatedBookList.addAll(newList);
+
+            box.put('${state.page}.${state.search}', model);
+
+            emit(
+              state.copyWith(
+                loading: false,
+                model: HomeModel(books: updatedBookList, next: model.next),
+              ),
+            );
+          },
+        );
+      }
     }
   }
 

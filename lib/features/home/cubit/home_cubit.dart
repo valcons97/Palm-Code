@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
@@ -78,7 +77,6 @@ class HomeCubit extends Cubit<HomeState> {
       updatedBookList.addAll(state.model?.books ?? []);
 
       if (box.get('${state.page}.${state.search}') != null) {
-        debugPrint('cache ${state.page}.${state.search}');
         final HomeModel model = box.get('${state.page}.${state.search}');
 
         final newList = model.books;

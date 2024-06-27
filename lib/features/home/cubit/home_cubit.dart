@@ -27,7 +27,8 @@ class HomeCubit extends Cubit<HomeState> {
         flow: HomeFlow.loaded,
       ),
     );
-    final result = await homeRepository.getBooks(page: state.page);
+    final result =
+        await homeRepository.getBooks(page: state.page, search: state.search);
 
     return result.fold(
       (failure) {
@@ -57,7 +58,8 @@ class HomeCubit extends Cubit<HomeState> {
     if (state.loadMore) {
       emit(state.copyWith(page: state.page + 1));
 
-      final result = await homeRepository.getBooks(page: state.page);
+      final result =
+          await homeRepository.getBooks(page: state.page, search: state.search);
 
       result.fold(
         (failure) {
@@ -85,5 +87,10 @@ class HomeCubit extends Cubit<HomeState> {
         },
       );
     }
+  }
+
+  void setSearch(String search) {
+    emit(state.copyWith(search: search.replaceAll(' ', '%20'), page: 1));
+    getBooks();
   }
 }

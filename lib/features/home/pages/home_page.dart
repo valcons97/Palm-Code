@@ -48,7 +48,9 @@ class HomePage extends StatelessWidget {
             child: PalmCodesScaffold(
               appbar: AppBar(
                 title: SearchBarWidget(
-                  onFieldSubmitted: (search) {},
+                  onFieldSubmitted: (search) {
+                    context.read<HomeCubit>().setSearch(search);
+                  },
                 ),
               ),
               refreshController: refreshController,

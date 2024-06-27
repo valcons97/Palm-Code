@@ -15,9 +15,11 @@ class HomeRepository extends IHomeRepository {
   @override
   Future<Either<Failure, HomeModel>> getBooks({
     int? page,
+    String? search,
   }) async {
     try {
-      final response = await _homeServiceClient.getBooks(page: page);
+      final response =
+          await _homeServiceClient.getBooks(page: page, search: search);
       return right(response.books);
     } on Exception catch (e) {
       return left(e.toFailure);

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:palm_codes/core/core.dart';
 import 'package:palm_codes/features/home/model/book_model.dart';
+import 'package:palm_codes/features/index.dart';
+
+import '../../widgets/detail/book_name_and_author_tile.dart';
 
 part 'wrapper.dart';
 
@@ -14,6 +17,9 @@ class BookDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final PersonModel firstAuthor = book.authors.isNotEmpty
+        ? book.authors.first
+        : const PersonModel(name: 'Uknown');
     return PalmCodesScaffold(
       body: CustomScrollView(
         slivers: [
@@ -21,7 +27,15 @@ class BookDetailPage extends StatelessWidget {
             automaticallyImplyLeading: true,
             flexibleSpace: FlexibleSpaceBar(
               centerTitle: true,
-              title: Text(book.title),
+              title: Text(
+                'Detail',
+                style: TextStyle(
+                  fontFamily: 'Poppins',
+                  fontSize: 20.sp,
+                  fontWeight: FontWeight.w600,
+                  color: context.res.colors.black100,
+                ).withLineHeight(28.8.sp),
+              ),
             ),
           ),
           SliverList(
@@ -31,6 +45,12 @@ class BookDetailPage extends StatelessWidget {
                 PalmCodesImage(
                   padding: EdgeInsets.symmetric(horizontal: 64.w),
                   url: book.formats["image/jpeg"] ?? '',
+                ),
+                BookNameAndAuthorTile(
+                  title: book.title,
+                  author: firstAuthor.name,
+                  birth: firstAuthor.birthYear,
+                  death: firstAuthor.deathYear,
                 ),
               ],
             ),

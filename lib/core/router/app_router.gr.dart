@@ -15,6 +15,17 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    BookDetailRoute.name: (routeData) {
+      final args = routeData.argsAs<BookDetailRouteArgs>();
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(
+            child: BookDetailPageWrapper(
+          key: args.key,
+          bookDetail: args.bookDetail,
+        )),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -28,6 +39,44 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [BookDetailPageWrapper]
+class BookDetailRoute extends PageRouteInfo<BookDetailRouteArgs> {
+  BookDetailRoute({
+    Key? key,
+    required BookModel bookDetail,
+    List<PageRouteInfo>? children,
+  }) : super(
+          BookDetailRoute.name,
+          args: BookDetailRouteArgs(
+            key: key,
+            bookDetail: bookDetail,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'BookDetailRoute';
+
+  static const PageInfo<BookDetailRouteArgs> page =
+      PageInfo<BookDetailRouteArgs>(name);
+}
+
+class BookDetailRouteArgs {
+  const BookDetailRouteArgs({
+    this.key,
+    required this.bookDetail,
+  });
+
+  final Key? key;
+
+  final BookModel bookDetail;
+
+  @override
+  String toString() {
+    return 'BookDetailRouteArgs{key: $key, bookDetail: $bookDetail}';
+  }
 }
 
 /// generated route for

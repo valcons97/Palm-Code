@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:injectable/injectable.dart';
 
-import '../cubit/home_nav/home_nav_cubit.dart';
+import '../../cubit/home_nav/home_nav_cubit.dart';
 
 /// In order to watch the status of the home page tabs
 /// we have this [AutoRouteObserver] that works

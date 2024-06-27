@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 import '../../features/index.dart';
 import '../core.dart';
 
@@ -16,6 +18,9 @@ class AppRouter extends _$AppRouter {
       children: [
         AutoRoute(page: HomeRoute.page),
       ],
+    ),
+    AutoRoute(
+      page: BookDetailRoute.page,
     ),
   ];
 }

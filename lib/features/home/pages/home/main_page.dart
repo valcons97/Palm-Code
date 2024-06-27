@@ -3,11 +3,11 @@ import 'dart:async';
 import 'package:after_layout/after_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:palm_codes/features/home/pages/home_nav_observer.dart';
+import 'package:palm_codes/features/home/pages/home/home_nav_observer.dart';
 
-import '../../../core/core.dart';
-import '../cubit/home_cubit.dart';
-import '../model/bottom_nav.dart';
+import '../../../../core/core.dart';
+import '../../cubit/home_cubit.dart';
+import '../../model/bottom_nav.dart';
 
 @RoutePage()
 class MainPage extends StatefulWidget {

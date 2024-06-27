@@ -12,18 +12,17 @@ import 'package:dio/dio.dart' as _i9;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:palm_codes/core/core.dart' as _i3;
-import 'package:palm_codes/core/di/core.module.dart' as _i18;
+import 'package:palm_codes/core/di/core.module.dart' as _i17;
 import 'package:palm_codes/core/storage/i_local_storage.dart' as _i11;
 import 'package:palm_codes/core/storage/local_storage.dart' as _i12;
 import 'package:palm_codes/features/home/cubit/home_cubit.dart' as _i16;
 import 'package:palm_codes/features/home/cubit/home_nav/home_nav_cubit.dart'
     as _i4;
-import 'package:palm_codes/features/home/pages/home_nav_observer.dart' as _i10;
-import 'package:palm_codes/features/home/repository/i_home_repository.dart'
-    as _i17;
+import 'package:palm_codes/features/home/pages/home/home_nav_observer.dart'
+    as _i10;
 import 'package:palm_codes/features/home/services/home_repository.dart' as _i14;
 import 'package:palm_codes/features/index.dart' as _i13;
-import 'package:palm_codes/network/di/rest.module.dart' as _i19;
+import 'package:palm_codes/network/di/rest.module.dart' as _i18;
 import 'package:palm_codes/network/provider/dio_provider.dart' as _i8;
 import 'package:palm_codes/network/rest.dart' as _i6;
 import 'package:palm_codes/network/services/auth/auth.dart' as _i15;
@@ -72,11 +71,11 @@ extension GetItInjectableX on _i1.GetIt {
       },
     );
     gh.factory<_i16.HomeCubit>(
-        () => _i16.HomeCubit(gh<_i17.IHomeRepository>()));
+        () => _i16.HomeCubit(gh<_i13.IHomeRepository>()));
     return this;
   }
 }
 
-class _$CoreModule extends _i18.CoreModule {}
+class _$CoreModule extends _i17.CoreModule {}
 
-class _$RestModule extends _i19.RestModule {}
+class _$RestModule extends _i18.RestModule {}

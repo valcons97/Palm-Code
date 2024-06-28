@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palm_codes/core/core.dart';
 import 'package:palm_codes/features/home/cubit/detail/detail_cubit.dart';
+import 'package:palm_codes/features/home/cubit/home/home_cubit.dart';
 import 'package:palm_codes/features/index.dart';
 
 import '../../widgets/detail/book_name_and_author_tile.dart';
@@ -24,11 +25,17 @@ class BookDetailPage extends StatelessWidget {
 
     return Builder(builder: (context) {
       final state = context.watch<DetailCubit>().state;
+
       return PalmCodesScaffold(
         body: CustomScrollView(
           slivers: [
             SliverAppBar(
-              automaticallyImplyLeading: true,
+              leading: BackButton(
+                onPressed: () {
+                  context.router.maybePop();
+                  context.read<HomeCubit>().getFavoriteBooks();
+                },
+              ),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 8.0).r,

@@ -21,6 +21,7 @@ class HomeCubit extends Cubit<HomeState> {
   final IHomeRepository homeRepository;
 
   final box = Hive.box('books');
+  final favoriteBox = Hive.box('favoriteBooks');
 
   Future<bool> getBooks() async {
     emit(
@@ -118,6 +119,16 @@ class HomeCubit extends Cubit<HomeState> {
         );
       }
     }
+  }
+
+  Future<void> getFavoriteBooks() async {
+    List bookModel = favoriteBox.get('bookList');
+
+    emit(
+      state.copyWith(
+        bookList: bookModel,
+      ),
+    );
   }
 
   void setSearch(String search) {

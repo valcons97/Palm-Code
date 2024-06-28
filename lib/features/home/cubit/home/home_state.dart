@@ -9,6 +9,7 @@ class HomeState extends Equatable {
     this.lastFailureTime,
     this.page = 1,
     this.search = '',
+    this.bookList,
   });
 
   final HomeFlow flow;
@@ -27,6 +28,8 @@ class HomeState extends Equatable {
 
   final String search;
 
+  final List? bookList;
+
   bool get loadMore => model?.books.length == (page * 32);
 
   @override
@@ -38,6 +41,7 @@ class HomeState extends Equatable {
         lastFailureTime,
         page,
         search,
+        bookList,
       ];
 
   HomeState copyWith({
@@ -48,6 +52,7 @@ class HomeState extends Equatable {
     DateTime? lastFailureTime,
     int? page,
     String? search,
+    List? bookList,
   }) {
     return HomeState(
       flow: flow ?? this.flow,
@@ -57,6 +62,7 @@ class HomeState extends Equatable {
       lastFailureTime: lastFailureTime ?? this.lastFailureTime,
       page: page ?? this.page,
       search: search ?? this.search,
+      bookList: bookList ?? this.bookList,
     );
   }
 }

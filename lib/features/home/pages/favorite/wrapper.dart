@@ -6,10 +6,8 @@ class FavoritePageWrapper extends StatelessWidget implements AutoRouteWrapper {
 
   @override
   Widget wrappedRoute(BuildContext context) {
-    return BlocProvider(
-      create: (_) => getIt<FavoriteCubit>()..getFavoriteBooks(),
-      child: this,
-    );
+    context.read<HomeCubit>().getFavoriteBooks();
+    return this;
   }
 
   @override

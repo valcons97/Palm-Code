@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palm_codes/features/home/pages/home/home_nav_observer.dart';
 
 import '../../../../core/core.dart';
-import '../../cubit/home_cubit.dart';
+import '../../cubit/home/home_cubit.dart';
 import '../../model/bottom_nav.dart';
 
 @RoutePage()
@@ -40,6 +40,7 @@ class _MainPageState extends State<MainPage> with AfterLayoutMixin<MainPage> {
                 navigatorObservers: () => [getIt<HomeNavObserver>()],
                 routes: const [
                   HomeRoute(),
+                  FavoriteRoute(),
                 ],
                 builder: (context, child) {
                   final tabsRouter = AutoTabsRouter.of(context);

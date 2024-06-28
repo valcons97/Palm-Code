@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:palm_codes/features/home/cubit/home_cubit.dart';
+import 'package:palm_codes/features/home/cubit/home/home_cubit.dart';
 import 'package:palm_codes/features/home/home_index.dart';
 
 import '../../../../core/core.dart';

@@ -26,6 +26,12 @@ abstract class _$AppRouter extends RootStackRouter {
         )),
       );
     },
+    FavoriteRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: WrappedRoute(child: const FavoritePageWrapper()),
+      );
+    },
     HomeRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -77,6 +83,20 @@ class BookDetailRouteArgs {
   String toString() {
     return 'BookDetailRouteArgs{key: $key, bookDetail: $bookDetail}';
   }
+}
+
+/// generated route for
+/// [FavoritePageWrapper]
+class FavoriteRoute extends PageRouteInfo<void> {
+  const FavoriteRoute({List<PageRouteInfo>? children})
+      : super(
+          FavoriteRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FavoriteRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

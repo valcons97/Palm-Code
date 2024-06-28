@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:palm_codes/core/core.dart';
-import 'package:palm_codes/features/home/cubit/detail_cubit/detail_cubit.dart';
+import 'package:palm_codes/features/home/cubit/detail/detail_cubit.dart';
 import 'package:palm_codes/features/index.dart';
 
 import '../../widgets/detail/book_name_and_author_tile.dart';
@@ -36,7 +36,7 @@ class BookDetailPage extends StatelessWidget {
                       onTap: () {
                         context
                             .read<DetailCubit>()
-                            .setFavorite(book.id.toString());
+                            .setFavorite(book.id.toString(), book);
                       },
                       child: state.favorite!
                           ? const Icon(

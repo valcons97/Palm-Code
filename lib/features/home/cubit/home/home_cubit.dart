@@ -4,7 +4,7 @@ import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
 import 'package:palm_codes/features/index.dart';
 
-import '../../../../core/core.dart';
+import '../../../../../core/core.dart';
 
 part 'home_state.dart';
 

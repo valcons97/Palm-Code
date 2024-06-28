@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart' as path_provider;
 import 'core/core.dart';
 import 'core/di/config/di_config.dart';
 import 'core/navigation_observer.dart';
-import 'features/home/cubit/home_cubit.dart';
+import 'features/home/cubit/home/home_cubit.dart';
 
 final router = getIt<AppRouter>();
 
@@ -28,7 +28,7 @@ void main() async {
 
   await Hive.openBox('ttl');
   await Hive.openBox('book');
-  await Hive.openBox('favoriteBook');
+  await Hive.openBox('favoriteBooks');
   await Hive.openBox('books');
 
   final ttl = Hive.box('ttl');
@@ -38,10 +38,12 @@ void main() async {
     final DateTime cacheDate = ttl.get('1');
     final now = DateTime.now();
 
-    if (now.difference(cacheDate).inDays > 1) {
+    if (now.difference(cacheDate).inDays > 0) {
       ttl.put('1', DateTime.now());
       // clear books list with TTL for 1 day
       await Hive.box('books').clear();
+      await Hive.box('favoriteBooks').clear();
+      await Hive.box('book').clear();
     }
   }
 

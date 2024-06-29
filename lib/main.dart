@@ -42,8 +42,6 @@ void main() async {
       ttl.put('1', DateTime.now());
       // clear books list with TTL for 1 day
       await Hive.box('books').clear();
-      await Hive.box('favoriteBooks').clear();
-      await Hive.box('book').clear();
     }
   }
 

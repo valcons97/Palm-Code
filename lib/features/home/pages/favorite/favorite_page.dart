@@ -20,7 +20,7 @@ class FavoritePage extends StatelessWidget {
           child: ListView.builder(
             physics: const BouncingScrollPhysics(),
             padding: const EdgeInsets.fromLTRB(24, 20, 24, 4).r,
-            itemCount: state.bookList?.length,
+            itemCount: state.bookList?.length ?? 0,
             itemBuilder: (context, index) {
               return BookContainer(book: state.bookList?[index]);
             },
